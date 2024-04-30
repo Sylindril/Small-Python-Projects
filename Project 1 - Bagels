@@ -1,0 +1,62 @@
+'''
+In Bagels, a deductive logic game, you must guess a secret three-digit number based on clues.
+The game offers one of the following hints in response to your guess:
+“Pico” when your guess has a correct digit in the wrong place,
+“Fermi” when your guess has a correct digit in the correct place,
+and “Bagels” if your guess has no correct digits.
+You have 10 tries to guess the secret number.
+'''
+import random
+
+print("This is Bagels, a deductive logic game, taken from AL Sweigart's big book of small python projects.\nI am thinking of a three digit number. Try to guess what it is.\nHere are some clues:")
+print("When I say:\t\tThat means:")
+print('\tPico\t\tOne digit is correct but in the wrong position.')
+print('\tFermi\t\tOne digit is correct and in the right position.')
+print('\tBagels\t\tNo digit is correct.')
+print("I have thought up a number.\nYou have 10 guesses to get it.")
+guessCount = 0
+number = random.randint(a = 100, b = 999)
+while True:
+    guessCount += 1
+    if guessCount >10:
+        print(f"You lost! The number was {number}")
+        break
+    numberList = [*str(number)]
+
+    print(f"Guess #{guessCount}")
+    guess = input()
+    guessList = [*guess]
+    if guess == str(number):
+        print("You got it!\nDo you want to play again? (yes or no)")
+        choice = input().upper()
+        if choice == "YES":
+            number = random.randint(100, 999)
+            guessCount = 0
+            print("I have thought up a number.\nYou have 10 guesses to get it.")
+            continue
+        else:
+            print("Thanks for playing!")
+            break
+    else:
+        clues = []
+
+        for i in range(len(guessList)):
+            if guessList[i] == numberList[i]:
+                clues.append("Fermi")
+            elif guessList[i] != numberList[i] and guessList[i] in numberList:
+                clues.append("Pico")
+        if not clues:
+            clues.append("Bagels")
+        clues.sort()
+    print(' '.join(clues))
+
+
+
+
+
+
+
+
+
+
+
